@@ -1,3 +1,5 @@
+# ai-mentor-portfolio HANUMANTHU BUDDHA
+
 ## Day 1 — Setup complete
 
 - ✅ Google AI Studio API key provisioned
