@@ -1,6 +1,6 @@
 # Day 5 — Résumé Scorer Streamlit
 
-**Live URL:** https://your-app-name.streamlit.app  
+**Live URL:** [https://your-app-name.streamlit.app](https://resume-scorer-app.streamlit.app/)  
 **Code:** [app.py](app.py)  
 **Acceptance Log:** [acceptance_log.md](acceptance_log.md)
 
