@@ -13,6 +13,19 @@
 4-layer response
 <img width="1370" height="117" alt="google_gemini_response" src="https://github.com/user-attachments/assets/9669c23b-7dfd-4963-a656-74e9165c5fb9" />
 
+## Day 2 Lab 2B — Errors handled
+
+1. **Markdown fence wrapping** (`\`\`\`json ... \`\`\``)
+   The retry prompt asks Gemini to output raw JSON without fences. Triggers on ~5-10% of calls.
+
+2. **Hallucinated phone number when source has none**
+   `Optional[str] = None` in Pydantic — model returns `null`, schema validates.
+
+3. **Empty / whitespace-only input**
+   Pydantic raises ValidationError with "Field required". Caller catches.
+
+## Sample résumés processed: 3 / 3 successful
+
 ## Day 4 — Productivity sprint
 
 **Company:** <COMPANY>
