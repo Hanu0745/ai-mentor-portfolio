@@ -93,3 +93,16 @@
 1. **API:** for low-volume, occasional calls. Avoids download. Cold-start risk on first call after idle.
 2. **Local:** for batch processing 100+ items, where you want predictable latency and don't pay per call.
 3. **Production rule of thumb:** if your usage exceeds the API free tier (~30K requests/month at HF), self-host. Otherwise API.
+
+## Day 6 Lab 6A — Errors handled
+
+1. **Markdown fence wrapping** (`\`\`\`json ... \`\`\``)
+   The retry prompt asks Gemini to output raw JSON without fences. Triggers on ~5-10% of calls.
+
+2. **Hallucinated phone number when source has none**
+   `Optional[str] = None` in Pydantic — model returns `null`, schema validates.
+
+3. **Empty / whitespace-only input**
+   Pydantic raises ValidationError with "Field required". Caller catches.
+
+**Hallucination on garbage input:** Gemini sometimes invents a plausible résumé from non-résumé text. Defence: validate input before sending (e.g., minimum length, presence of email-like pattern).
