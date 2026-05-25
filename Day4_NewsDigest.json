@@ -1,0 +1,142 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "36c4aad9-2e26-484b-a432-8a4985283b22",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://news.ycombinator.com/rss ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c7d7bc78-b9f3-4064-84b8-a7eb4df88add",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"llama-3.3-70b-versatile\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Summarise these RSS items into 5 bullets for a placement coach.\"\n    }\n  ],\n  \"temperature\": 0.7\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "1565fbd7-0ee4-4e02-970f-30e0bb80d0b3",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "pRsZs8uwx1Nxa1MU",
+          "name": "Header Auth account"
+        },
+        "httpBearerAuth": {
+          "id": "QR1SBPrAqz82l70T",
+          "name": "Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "bhanumanthu450@gmail.com",
+        "toEmail": "bhanumanthu450@gmail.com",
+        "subject": "Testing",
+        "emailFormat": "text",
+        "text": "=This is for testing {{ $json.choices[0].message.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "f746b825-bfa2-4ad8-adf2-14a0b236e0e8",
+      "name": "Send an Email",
+      "webhookId": "61390a7e-569f-4722-93ab-5c285dfb1f93",
+      "credentials": {
+        "smtp": {
+          "id": "LJ5Zj6FNnJUJdZ6x",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "f6930806-4068-4d47-aad6-36f6227ce2db",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a4d3bf22a283846283dcecb735ce925ce2919d805152f37d26149d94cc9131fc"
+  },
+  "id": "MmyZqiWO6NGJUj6K",
+  "tags": []
+}
