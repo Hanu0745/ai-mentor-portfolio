@@ -142,3 +142,15 @@
 - Plotted PCA 2D — visible OS / DBMS clusters
 
 **Reflection:** Semantic search returns nearest, not exact. RAG must enforce citations to catch out-of-corpus queries (this afternoon's Sprint 2).
+
+## Day 9 Lab 9A — Hello-LangGraph
+
+- 1-tool ReAct agent with DuckDuckGo web_search
+- 4-message trace on a live-fact question (TCS 2026 hiring)
+- Failure case: bad URL → agent reported "could not find" / agent hallucinated [pick one]
+
+### Reflection (3 lines)
+
+1. The trace IS the explanation. Print every step.
+2. The doc-string IS the prompt. Bad doc-string = bad tool selection.
+3. Real agents handle tool failures gracefully — define failure modes in the doc-string.
